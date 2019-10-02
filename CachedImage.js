@@ -41,6 +41,7 @@ function getImageProps(props) {
 }
 
 const CACHED_IMAGE_REF = 'cachedImage';
+const unsubscribe;
 
 class CachedImage extends React.Component {
 
@@ -80,7 +81,10 @@ class CachedImage extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
-        NetInfo.addEventListener('connectionChange', this.handleConnectivityChange);
+        // NetInfo.addEventListener('connectionChange', this.handleConnectivityChange);
+        unsubscribe = NetInfo.addEventListener(state => {
+            this.handleConnectivityChange(state.isConnected)
+        });
         // initial
         NetInfo.fetch()
             .then(state => {
@@ -94,7 +98,11 @@ class CachedImage extends React.Component {
 
     componentWillUnmount() {
         this._isMounted = false;
-        NetInfo.removeEventListener('connectionChange', this.handleConnectivityChange);
+        // NetInfo.removeEventListener('connectionChange', this.handleConnectivityChange);
+        // NetInfo.addEventListener(state => {
+        //     this.handleConnectivityChange(state.isConnected)
+        // })
+        unsubscribe();
     }
 
     componentWillReceiveProps(nextProps) {
