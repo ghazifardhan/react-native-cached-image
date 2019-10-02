@@ -105,10 +105,17 @@ class CachedImage extends React.Component {
         unsubscribe();
     }
 
-    componentWillReceiveProps(nextProps) {
+    // componentWillReceiveProps(nextProps) {
+    //     if (!_.isEqual(this.props.source, nextProps.source)) {
+    //         this.processSource(nextProps.source);
+    //     }
+    // }
+
+    getDerivedStateFromProps(nextProps) {
         if (!_.isEqual(this.props.source, nextProps.source)) {
             this.processSource(nextProps.source);
         }
+
     }
 
     setNativeProps(nativeProps) {
