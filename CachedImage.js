@@ -41,7 +41,7 @@ function getImageProps(props) {
 }
 
 const CACHED_IMAGE_REF = 'cachedImage';
-const unsubscribe;
+var unsubscribe;
 
 class CachedImage extends React.Component {
 
